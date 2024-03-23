@@ -13,13 +13,6 @@ pipeline {
                 }
             }
         }
-        stage ('Build App'){
-            steps {
-                script {
-                    sh 'npm run build'
-                }
-            }
-        }
         stage ('start node.js server'){
             steps {
                 script {
