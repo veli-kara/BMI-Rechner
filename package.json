@@ -6,7 +6,7 @@
     "scripts": {
         "build": "npm run build",
         "start": "nodemon server.js",
-        "test": "cypress run --headless",
+        "test": "npx cypress run --headless",
         "start-prod": "npm start",
         "cypress:open": "cypress open"
     },
