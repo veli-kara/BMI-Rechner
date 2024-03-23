@@ -1,16 +1,38 @@
 pipeline {
     agent any
+    tools {
+        nodejs '20.11.1'
+    }
 
     stages {
-        stage('Set up Node.js') {
-            steps {
-                node {
-                    def nodeVersion = '20.11.1'
-                    tool name: 'NodeJS', type: 'jenkins.plugins.nodejs.tools.NodeJSInstallation'
-                    env.PATH = "${tool 'NodeJS'}/bin:${env.PATH}"
-                    sh "node -v"
+        stage ('Install Dependencies') {
+            steps{
+                script {
+                    sh 'npm install express'
+                    sh 'npm install --save-dev cypress'
                 }
             }
         }
-    }       
-}
+        stage ('Build App'){
+            steps {
+                script {
+                    sh 'npm run build'
+                }
+            }
+        }
+        stage ('start node.js server'){
+            steps {
+                script {
+                    sh 'npm start &'
+                    sh 'sleep 10'
+                }
+            }
+        }
+        stage ('run tests') {
+            steps {
+                script {
+                    sh 'npm test'
+                }
+            }
+        }
+    }
