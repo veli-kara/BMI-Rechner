@@ -10,6 +10,7 @@ pipeline {
                 script {
                     sh 'npm install express'
                     sh 'npm install --save-dev cypress'
+                    sh 'npm i @cypress/xvfb'
                 }
             }
         }
